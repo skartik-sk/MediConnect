@@ -36,10 +36,12 @@ app.get("/", (req,res) => {
     res.send("app is listing")
 });
 
-// server started
-app.listen(port,()=>{
-    console.log("server started")
-})
+// server started - only in local development (not in serverless)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port,()=>{
+        console.log("server started")
+    })
+}
 
 // Export the Express app for Vercel
 export default app;
