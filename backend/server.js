@@ -5,7 +5,7 @@ const app = express();
 
 import cors from "cors";
 import 'dotenv/config'
-import connectDB from "./config/mongodb.js";
+import connectDB from "./config/mongoDB.js";
 import connectCloudinary from "./config/cloudinary.js";
 
 // routes
@@ -36,7 +36,12 @@ app.get("/", (req,res) => {
     res.send("app is listing")
 });
 
-// server started
-app.listen(port,()=>{
-    console.log("server started")
-})
+// server started - only in local development (not in serverless)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port,()=>{
+        console.log("server started")
+    })
+}
+
+// Export the Express app for Vercel
+export default app;
